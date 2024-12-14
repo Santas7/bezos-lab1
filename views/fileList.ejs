@@ -68,6 +68,12 @@
     .refresh-btn:hover {
       background-color: #388e3c;
     }
+    .highlight {
+      background-color: red !important;
+      color: white;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
@@ -110,6 +116,18 @@
 
     document.getElementById('refreshBtn').addEventListener('click', async function () {
       window.location.reload()
+    });
+
+    document.getElementById('pid').addEventListener('input', function() {
+        const pid = this.value.trim();
+        const pre = document.getElementById('fileList');
+        const content = pre.textContent;
+        pre.innerHTML = content;
+        if (pid) {
+            const regex = new RegExp(`(^|\\s)(${pid})(\\s|$)`, 'g');
+            const highlightedContent = content.replace(regex, '$1<span class="highlight">$2</span>$3');
+            pre.innerHTML = highlightedContent;
+        }
     });
   </script>
 </body>
